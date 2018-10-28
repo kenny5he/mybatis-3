@@ -109,15 +109,18 @@ public class TypeAliasRegistry {
                 return null;
             }
             // issue #748
+            // 转换成小写
             String key = string.toLowerCase(Locale.ENGLISH);
             Class<T> value;
+            // 首先，从 TYPE_ALIASES 中获取
             if (TYPE_ALIASES.containsKey(key)) {
                 value = (Class<T>) TYPE_ALIASES.get(key);
+            // 其次，直接获得对应类
             } else {
                 value = (Class<T>) Resources.classForName(string);
             }
             return value;
-        } catch (ClassNotFoundException e) {
+        } catch (ClassNotFoundException e) { // 异常
             throw new TypeException("Could not resolve type alias '" + string + "'.  Cause: " + e, e);
         }
     }
@@ -182,9 +185,9 @@ public class TypeAliasRegistry {
             throw new TypeException("The parameter alias cannot be null");
         }
         // issue #748
-        // 首字母小写
+        // 转换成小写
         String key = alias.toLowerCase(Locale.ENGLISH);
-        if (TYPE_ALIASES.containsKey(key) && TYPE_ALIASES.get(key) != null && !TYPE_ALIASES.get(key).equals(value)) {
+        if (TYPE_ALIASES.containsKey(key) && TYPE_ALIASES.get(key) != null && !TYPE_ALIASES.get(key).equals(value)) { // 冲突，抛出 TypeException 异常
             throw new TypeException("The alias '" + alias + "' is already mapped to the value '" + TYPE_ALIASES.get(key).getName() + "'.");
         }
         TYPE_ALIASES.put(key, value);

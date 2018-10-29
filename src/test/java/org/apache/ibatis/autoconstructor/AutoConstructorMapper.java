@@ -28,6 +28,8 @@ public interface AutoConstructorMapper {
     @Select("SELECT * FROM subject")
     List<PrimitiveSubject> getSubjects();
 
+    PrimitiveSubject getSubject2(final int id); // add by 芋艿
+
     // ========== AnnotatedSubject ==========
 
     @Select("SELECT * FROM subject")

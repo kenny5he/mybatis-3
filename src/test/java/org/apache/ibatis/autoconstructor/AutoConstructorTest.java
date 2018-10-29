@@ -57,6 +57,16 @@ public class AutoConstructorTest {
         }
     }
 
+    @Test
+    public void fullyPopulatedSubject2() {
+        try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
+            final AutoConstructorMapper mapper = sqlSession.getMapper(AutoConstructorMapper.class);
+            final Object subject = mapper.getSubject2(1);
+            assertNotNull(subject);
+        }
+    }
+
+
     @Test(expected = PersistenceException.class)
 //  @Test
     public void primitiveSubjects() {

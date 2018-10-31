@@ -49,6 +49,8 @@ public class XMLMapperEntityResolver implements EntityResolver {
     private static final String MYBATIS_MAPPER_DTD = "org/apache/ibatis/builder/xml/mybatis-3-mapper.dtd";
 
     /**
+     * 转换成 DTD 本地地址
+     *
      * Converts a public DTD into a local one
      *
      * @param publicId The public id that is what comes after "PUBLIC"

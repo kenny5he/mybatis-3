@@ -22,6 +22,14 @@
 
 <mapper namespace="org.apache.ibatis.autoconstructor.AutoConstructorMapper">
 
+    <resultMap id="B" type="Map" extends="A" />
+
+    <resultMap id="A" type="Map" />
+
+    <sql id="123">
+
+    </sql>
+
     <select id="getSubject2" parameterType="int" resultType="org.apache.ibatis.autoconstructor.PrimitiveSubject" >
         SELECT * FROM subject WHERE id = #{id}
     </select>

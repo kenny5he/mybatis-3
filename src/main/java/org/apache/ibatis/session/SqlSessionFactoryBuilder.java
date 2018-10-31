@@ -50,8 +50,8 @@ public class SqlSessionFactoryBuilder {
      * 构造 SqlSessionFactory 对象
      *
      * @param reader Reader 对象
-     * @param environment TODO 芋艿，mybatis 支持多环境？
-     * @param properties TODO 芋艿，properties ？
+     * @param environment 环境
+     * @param properties Properties 变量
      * @return SqlSessionFactory 对象
      */
     @SuppressWarnings("Duplicates")
@@ -59,7 +59,8 @@ public class SqlSessionFactoryBuilder {
         try {
             // 创建 XMLConfigBuilder 对象
             XMLConfigBuilder parser = new XMLConfigBuilder(reader, environment, properties);
-            //
+            // 执行 XML 解析
+            // 创建 DefaultSqlSessionFactory 对象
             return build(parser.parse());
         } catch (Exception e) {
             throw ExceptionFactory.wrapException("Error building SqlSession.", e);

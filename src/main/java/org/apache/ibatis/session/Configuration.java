@@ -31,6 +31,7 @@ import org.apache.ibatis.datasource.pooled.PooledDataSourceFactory;
 import org.apache.ibatis.datasource.unpooled.UnpooledDataSourceFactory;
 import org.apache.ibatis.executor.*;
 import org.apache.ibatis.executor.keygen.KeyGenerator;
+import org.apache.ibatis.executor.keygen.SelectKeyGenerator;
 import org.apache.ibatis.executor.loader.ProxyFactory;
 import org.apache.ibatis.executor.loader.cglib.CglibProxyFactory;
 import org.apache.ibatis.executor.loader.javassist.JavassistProxyFactory;
@@ -165,6 +166,11 @@ public class Configuration {
     protected final TypeAliasRegistry typeAliasRegistry = new TypeAliasRegistry();
     protected final LanguageDriverRegistry languageRegistry = new LanguageDriverRegistry();
 
+    /**
+     * MappedStatement 映射
+     *
+     * KEY：`${namespace}.${id}`
+     */
     protected final Map<String, MappedStatement> mappedStatements = new StrictMap<>("Mapped Statements collection");
     /**
      * Cache 对象集合
@@ -179,6 +185,11 @@ public class Configuration {
      */
     protected final Map<String, ResultMap> resultMaps = new StrictMap<>("Result Maps collection");
     protected final Map<String, ParameterMap> parameterMaps = new StrictMap<>("Parameter Maps collection");
+    /**
+     * KeyGenerator 的映射
+     *
+     * KEY：在 {@link #mappedStatements} 的 KEY 的基础上，跟上 {@link SelectKeyGenerator#SELECT_KEY_SUFFIX}
+     */
     protected final Map<String, KeyGenerator> keyGenerators = new StrictMap<>("Key Generators collection");
 
     /**

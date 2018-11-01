@@ -22,13 +22,32 @@
 
 <mapper namespace="org.apache.ibatis.autoconstructor.AutoConstructorMapper">
 
-    <resultMap id="B" type="Map" extends="A" />
+    <!-- add by 芋艿，用于测试 include 属性 -->
+    <!--<resultMap id="B" type="Map" extends="A" />-->
+    <!--<resultMap id="A" type="Map" />-->
 
-    <resultMap id="A" type="Map" />
+    <!-- add by 芋艿，用于测试 include 属性 -->
+    <!--<sql id="123" lang="${cpu}">-->
+        <!--${cpu}-->
+        <!--aoteman-->
+        <!--qqqq-->
+    <!--</sql>-->
+    <!--<select id="testForInclude">-->
+        <!--SELECT * FROM subject-->
+        <!--<include refid="${target_sql}" />-->
+    <!--</select>-->
 
-    <sql id="123">
+    <resultMap id="A" type="Object">
+        <result property="vin" column="vin"/>
+    </resultMap>
 
-    </sql>
+    <resultMap id="B" type="Object">
+        <result property="year" column="year"/>
+    </resultMap>
+
+    <select id="testResultMap" parameterType="Integer" resultMap="A,B">
+        SELECT * FROM subject WHERE id = #{id}
+    </select>
 
     <select id="getSubject2" parameterType="int" resultType="org.apache.ibatis.autoconstructor.PrimitiveSubject" >
         SELECT * FROM subject WHERE id = #{id}

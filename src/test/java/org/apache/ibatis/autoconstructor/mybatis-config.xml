@@ -24,6 +24,11 @@
 
     <!-- autoMappingBehavior should be set in each test case -->
 
+    <properties>
+        <property name="cpu" value="16c" />
+        <property name="target_sql" value="123" />
+    </properties>
+
     <environments default="development">
         <environment id="development">
             <!-- 配置事务管理 -->

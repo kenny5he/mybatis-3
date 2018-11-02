@@ -204,17 +204,20 @@ public class Configuration {
     protected final Map<String, XNode> sqlFragments = new StrictMap<>("XML fragments parsed from previous mappers");
 
     /**
-     * XMLStatementBuilder 集合
+     * 未完成的 XMLStatementBuilder 集合
      */
     protected final Collection<XMLStatementBuilder> incompleteStatements = new LinkedList<>();
     /**
-     * CacheRefResolver 集合
+     * 未完成的 CacheRefResolver 集合
      */
     protected final Collection<CacheRefResolver> incompleteCacheRefs = new LinkedList<>();
     /**
-     * ResultMapResolver 集合
+     * 未完成的 ResultMapResolver 集合
      */
     protected final Collection<ResultMapResolver> incompleteResultMaps = new LinkedList<>();
+    /**
+     * 未完成的 MethodResolver 集合
+     */
     protected final Collection<MethodResolver> incompleteMethods = new LinkedList<>();
 
     /**

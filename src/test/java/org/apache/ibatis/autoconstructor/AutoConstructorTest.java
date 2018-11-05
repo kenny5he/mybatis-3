@@ -26,6 +26,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.io.Reader;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.assertNotNull;
@@ -66,6 +67,14 @@ public class AutoConstructorTest {
         }
     }
 
+    @Test
+    public void testGetSubjects() {
+        try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
+            final AutoConstructorMapper mapper = sqlSession.getMapper(AutoConstructorMapper.class);
+            final Object subject = mapper.getSubjectList(Arrays.asList(1,2 ));
+            assertNotNull(subject);
+        }
+    }
 
     @Test(expected = PersistenceException.class)
 //  @Test

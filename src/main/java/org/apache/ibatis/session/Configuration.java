@@ -164,6 +164,9 @@ public class Configuration {
      * TypeAliasRegistry 对象
      */
     protected final TypeAliasRegistry typeAliasRegistry = new TypeAliasRegistry();
+    /**
+     * LanguageDriverRegistry 对象
+     */
     protected final LanguageDriverRegistry languageRegistry = new LanguageDriverRegistry();
 
     /**
@@ -269,6 +272,7 @@ public class Configuration {
         typeAliasRegistry.registerAlias("JAVASSIST", JavassistProxyFactory.class);
         // 注册到 typeAliasRegistry 中 end ~~~~
 
+        // 注册到 languageRegistry 中
         languageRegistry.setDefaultDriverClass(XMLLanguageDriver.class);
         languageRegistry.register(RawLanguageDriver.class);
     }

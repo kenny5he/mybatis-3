@@ -46,11 +46,32 @@
     </resultMap>
 
     <select id="testResultMap" parameterType="Integer" resultMap="A,B">
-        SELECT * FROM subject WHERE id = #{id}
+        SELECT *
+        FROM subject
+        <where>
+            <choose>
+                <when test="${id != null}">
+                    id = ${id}
+                </when>
+            </choose>
+        </where>
     </select>
 
-    <select id="getSubject2" parameterType="int" resultType="org.apache.ibatis.autoconstructor.PrimitiveSubject" >
-        SELECT * FROM subject WHERE id = #{id}
+    <select id="getSubject2" parameterType="Integer" resultType="org.apache.ibatis.autoconstructor.PrimitiveSubject" >
+        SELECT * FROM subject
+        <if test="id != null">
+            id = #{id}
+        </if>
+
+--         WHERE id = #{id}
+    </select>
+
+    <select id="getSubjectList" parameterType="List" resultType="List">
+        SELECT id FROM subject
+        WHERE id IN
+          <foreach collection="ids" index="idx" item="item" open="("  close=")" separator=",">
+              #{item}
+          </foreach>
     </select>
 
 </mapper>

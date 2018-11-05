@@ -367,6 +367,7 @@ public final class MappedStatement {
     // TODO 芋艿，还没看完
     public BoundSql getBoundSql(Object parameterObject) {
         BoundSql boundSql = sqlSource.getBoundSql(parameterObject);
+        // TODO 芋艿，进一步包装
         List<ParameterMapping> parameterMappings = boundSql.getParameterMappings();
         if (parameterMappings == null || parameterMappings.isEmpty()) {
             boundSql = new BoundSql(configuration, boundSql.getSql(), parameterMap.getParameterMappings(), parameterObject);

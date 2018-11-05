@@ -59,19 +59,20 @@
 
     <select id="getSubject2" parameterType="Integer" resultType="org.apache.ibatis.autoconstructor.PrimitiveSubject" >
         SELECT * FROM subject
-        <if test="id != null">
-            id = #{id}
-        </if>
+        <!--<if test="id != null">-->
+            <!--id = #{id}-->
+        <!--</if>-->
 
---         WHERE id = #{id}
-    </select>
+        <!--WHERE id = #{id}-->
+       WHERE id = ${id}
+   </select>
 
-    <select id="getSubjectList" parameterType="List" resultType="List">
-        SELECT id FROM subject
-        WHERE id IN
-          <foreach collection="ids" index="idx" item="item" open="("  close=")" separator=",">
-              #{item}
-          </foreach>
-    </select>
+   <select id="getSubjectList" parameterType="List" resultType="List">
+       SELECT id FROM subject
+       WHERE id IN
+         <foreach collection="ids" index="idx" item="item" open="("  close=")" separator=",">
+             #{item}
+         </foreach>
+   </select>
 
 </mapper>

@@ -68,6 +68,15 @@ public class AutoConstructorTest {
     }
 
     @Test
+    public void fullyPopulatedSubject3() {
+        try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
+            final AutoConstructorMapper mapper = sqlSession.getMapper(AutoConstructorMapper.class);
+            final Object subject = mapper.getSubject3(1);
+            assertNotNull(subject);
+        }
+    }
+
+    @Test
     public void testGetSubjects() {
         try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
             final AutoConstructorMapper mapper = sqlSession.getMapper(AutoConstructorMapper.class);

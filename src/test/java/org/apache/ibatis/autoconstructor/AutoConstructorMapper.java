@@ -31,6 +31,8 @@ public interface AutoConstructorMapper {
 
     PrimitiveSubject getSubject2(@Param("id") final int id); // add by 芋艿
 
+    PrimitiveSubject getSubject3(@Param("id") final int id); // add by 芋艿
+
     List<PrimitiveSubject> getSubjectList(@Param("ids") List<Integer> ids); // add by 芋艿
 
     // ========== AnnotatedSubject ==========

@@ -59,13 +59,18 @@
 
     <select id="getSubject2" parameterType="Integer" resultType="org.apache.ibatis.autoconstructor.PrimitiveSubject" >
         SELECT * FROM subject
-        <!--<if test="id != null">-->
-            <!--id = #{id}-->
-        <!--</if>-->
+        <if test="id != null">
+          WHERE id = #{id}
+        </if>
 
         <!--WHERE id = #{id}-->
-       WHERE id = ${id}
+        <!-- WHERE id = #{id} -->
    </select>
+
+    <select id="getSubject3" parameterType="Integer" resultType="org.apache.ibatis.autoconstructor.PrimitiveSubject">
+        SELECT * FROM subject
+        WHERE id = #{id}
+    </select>
 
    <select id="getSubjectList" parameterType="List" resultType="List">
        SELECT id FROM subject

@@ -364,7 +364,7 @@ public final class MappedStatement {
         return resultSets;
     }
 
-    // TODO 芋艿，还没看完
+    // TODO 芋艿，还没看完 1006
     public BoundSql getBoundSql(Object parameterObject) {
         BoundSql boundSql = sqlSource.getBoundSql(parameterObject);
         // TODO 芋艿，进一步包装

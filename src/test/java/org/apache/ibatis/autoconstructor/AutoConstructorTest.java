@@ -55,6 +55,8 @@ public class AutoConstructorTest {
             final AutoConstructorMapper mapper = sqlSession.getMapper(AutoConstructorMapper.class);
             final Object subject = mapper.getSubject(1);
             assertNotNull(subject);
+            final Object subject2 = mapper.getSubject(1);
+            assertNotNull(subject2);
         }
     }
 
@@ -122,6 +124,18 @@ public class AutoConstructorTest {
     private void verifySubjects(final List<?> subjects) {
         assertNotNull(subjects);
         Assertions.assertThat(subjects.size()).isEqualTo(3);
+    }
+
+    @Test
+    public void testCache() {
+        sqlSessionFactory.getConfiguration().setCacheEnabled(true); // 开启缓存功能
+        SqlSession sqlSession01 = sqlSessionFactory.openSession();
+        AutoConstructorMapper mapper01 = sqlSession01.getMapper(AutoConstructorMapper.class);
+        final Object subject01 = mapper01.getSubject(1);
+
+        SqlSession sqlSession02 = sqlSessionFactory.openSession();
+        AutoConstructorMapper mapper02 = sqlSession02.getMapper(AutoConstructorMapper.class);
+        final Object subject02 = mapper02.getSubject(1);
     }
 
 }

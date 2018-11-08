@@ -31,6 +31,8 @@ public interface AutoConstructorMapper {
     @Select("SELECT * FROM subject")
     List<PrimitiveSubject> getSubjects();
 
+
+
     PrimitiveSubject getSubject2(@Param("id") final int id); // add by 芋艿
 
     PrimitiveSubject getSubject3(@Param("id") final int id); // add by 芋艿

@@ -114,7 +114,13 @@ public class Configuration {
     protected Integer defaultStatementTimeout;
     protected Integer defaultFetchSize;
     protected ExecutorType defaultExecutorType = ExecutorType.SIMPLE;
+    /**
+     * 自动映射行为
+     */
     protected AutoMappingBehavior autoMappingBehavior = AutoMappingBehavior.PARTIAL;
+    /**
+     * 自动映射失败的行为处理
+     */
     protected AutoMappingUnknownColumnBehavior autoMappingUnknownColumnBehavior = AutoMappingUnknownColumnBehavior.NONE;
 
     /**

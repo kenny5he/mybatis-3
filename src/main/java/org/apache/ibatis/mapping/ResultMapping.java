@@ -85,7 +85,7 @@ public class ResultMapping {
     /**
      * 标识这个将会从哪里加载的复杂类型数据的结果集合的名称
      */
-    private String resultSet;
+    private String resultSet; // 存储过程相关，忽略
     /**
      * 标识出包含 foreign keys 的列的名称。这个 foreign keys的值将会和父类型中指定的列属性的值相匹配
      */

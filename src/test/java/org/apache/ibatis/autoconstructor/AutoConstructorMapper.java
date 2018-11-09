@@ -41,7 +41,8 @@ public interface AutoConstructorMapper {
 
     // ========== AnnotatedSubject ==========
 
-    @Select("SELECT * FROM subject")
+//    @Select("SELECT * FROM subject")
+    @Select("SELECT id AS ID, name, age, height, weight FROM subject")
     List<AnnotatedSubject> getAnnotatedSubjects();
 
     // ========== BadSubject ==========

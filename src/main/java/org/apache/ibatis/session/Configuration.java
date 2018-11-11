@@ -90,6 +90,9 @@ public class Configuration {
     protected boolean safeRowBoundsEnabled;
     protected boolean safeResultHandlerEnabled = true;
     protected boolean mapUnderscoreToCamelCase;
+    /**
+     * 当开启时，任何方法的调用都会加载该对象的所有属性。否则，每个属性会按需加载（参考lazyLoadTriggerMethods)
+     */
     protected boolean aggressiveLazyLoading;
     protected boolean multipleResultSetsEnabled = true;
     protected boolean useGeneratedKeys;
@@ -113,6 +116,9 @@ public class Configuration {
      */
     protected LocalCacheScope localCacheScope = LocalCacheScope.SESSION;
     protected JdbcType jdbcTypeForNull = JdbcType.OTHER;
+    /**
+     * 指定哪个对象的方法触发一次延迟加载。
+     */
     protected Set<String> lazyLoadTriggerMethods = new HashSet<>(Arrays.asList("equals", "clone", "hashCode", "toString"));
     protected Integer defaultStatementTimeout;
     protected Integer defaultFetchSize;
@@ -145,6 +151,9 @@ public class Configuration {
      */
     protected ObjectWrapperFactory objectWrapperFactory = new DefaultObjectWrapperFactory();
 
+    /**
+     * 延迟加载的全局开关。当开启时，所有关联对象都会延迟加载。 特定关联关系中可通过设置fetchType属性来覆盖该项的开关状态。
+     */
     protected boolean lazyLoadingEnabled = false;
     protected ProxyFactory proxyFactory = new JavassistProxyFactory(); // #224 Using internal Javassist instead of OGNL
 

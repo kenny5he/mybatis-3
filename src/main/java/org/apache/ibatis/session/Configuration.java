@@ -97,6 +97,9 @@ public class Configuration {
     protected boolean cacheEnabled = true;
     protected boolean callSettersOnNulls;
     protected boolean useActualParamName = true;
+    /**
+     * 是否返回空行对应的对象
+     */
     protected boolean returnInstanceForEmptyRow;
 
     protected String logPrefix;

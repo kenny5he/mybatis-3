@@ -27,15 +27,15 @@ import java.util.List;
 public class InterceptorChain {
 
     /**
-     * 连接器数组
+     * 拦截器数组
      */
     private final List<Interceptor> interceptors = new ArrayList<>();
 
     /**
-     * TODO 芋艿，后续看
+     * 应用所有插件
      *
-     * @param target
-     * @return
+     * @param target 目标对象
+     * @return 应用结果
      */
     public Object pluginAll(Object target) {
         for (Interceptor interceptor : interceptors) {

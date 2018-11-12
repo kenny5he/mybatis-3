@@ -833,9 +833,11 @@ public class Configuration {
     }
 
     public MappedStatement getMappedStatement(String id, boolean validateIncompleteStatements) {
+        // 校验，保证所有 MappedStatement 已经构造完毕
         if (validateIncompleteStatements) {
             buildAllStatements();
         }
+        // 获取 MappedStatement 对象
         return mappedStatements.get(id);
     }
 
@@ -890,25 +892,25 @@ public class Configuration {
      */
     protected void buildAllStatements() {
         if (!incompleteResultMaps.isEmpty()) {
-            synchronized (incompleteResultMaps) {
+            synchronized (incompleteResultMaps) { // 保证 incompleteResultMaps 被解析完
                 // This always throws a BuilderException.
                 incompleteResultMaps.iterator().next().resolve();
             }
         }
         if (!incompleteCacheRefs.isEmpty()) {
-            synchronized (incompleteCacheRefs) {
+            synchronized (incompleteCacheRefs) { // 保证 incompleteCacheRefs 被解析完
                 // This always throws a BuilderException.
                 incompleteCacheRefs.iterator().next().resolveCacheRef();
             }
         }
         if (!incompleteStatements.isEmpty()) {
-            synchronized (incompleteStatements) {
+            synchronized (incompleteStatements) { // 保证 incompleteStatements 被解析完
                 // This always throws a BuilderException.
                 incompleteStatements.iterator().next().parseStatementNode();
             }
         }
         if (!incompleteMethods.isEmpty()) {
-            synchronized (incompleteMethods) {
+            synchronized (incompleteMethods) { // 保证 incompleteMethods 被解析完
                 // This always throws a BuilderException.
                 incompleteMethods.iterator().next().resolve();
             }

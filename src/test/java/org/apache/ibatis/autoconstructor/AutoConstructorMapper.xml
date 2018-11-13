@@ -37,7 +37,7 @@
         <!--<include refid="${target_sql}" />-->
     <!--</select>-->
 
-    <resultMap id="A" type="Object">
+    <resultMap id="A" type="Map">
         <result property="vin" column="vin"/>
     </resultMap>
 
@@ -57,6 +57,11 @@
         </where>
     </select>
 
+    <select id="testParamMap" resultType="org.apache.ibatis.autoconstructor.PrimitiveSubject">
+        SELECT *
+        FROM subject
+    </select>
+
     <select id="getSubject2" parameterType="Integer" resultType="org.apache.ibatis.autoconstructor.PrimitiveSubject" >
         SELECT * FROM subject
         <if test="id != null">
@@ -70,6 +75,13 @@
     <select id="getSubject3" parameterType="Integer" resultType="org.apache.ibatis.autoconstructor.PrimitiveSubject">
         SELECT * FROM subject
         WHERE id = #{id}
+    </select>
+
+    <select id="getSubject4" parameterType="Integer" resultType="org.apache.ibatis.autoconstructor.PrimitiveSubject">
+        SELECT * FROM subject
+        <if test="id != null">
+            WHERE id = #{id}
+        </if>
     </select>
 
    <select id="getSubjectList" parameterType="List" resultType="List">

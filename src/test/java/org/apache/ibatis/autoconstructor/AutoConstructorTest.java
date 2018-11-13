@@ -27,7 +27,9 @@ import org.junit.Test;
 
 import java.io.Reader;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static org.junit.Assert.assertNotNull;
 
@@ -74,6 +76,15 @@ public class AutoConstructorTest {
         try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
             final AutoConstructorMapper mapper = sqlSession.getMapper(AutoConstructorMapper.class);
             final Object subject = mapper.getSubject3(1);
+            assertNotNull(subject);
+        }
+    }
+
+    @Test
+    public void fullyPopulatedSubject4() {
+        try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
+            final AutoConstructorMapper mapper = sqlSession.getMapper(AutoConstructorMapper.class);
+            final Object subject = mapper.getSubject4(null);
             assertNotNull(subject);
         }
     }
@@ -136,6 +147,16 @@ public class AutoConstructorTest {
         SqlSession sqlSession02 = sqlSessionFactory.openSession();
         AutoConstructorMapper mapper02 = sqlSession02.getMapper(AutoConstructorMapper.class);
         final Object subject02 = mapper02.getSubject(1);
+    }
+
+    @Test
+    public void testResultMap() {
+        sqlSessionFactory.getConfiguration().setCacheEnabled(true); // 开启缓存功能
+        SqlSession sqlSession01 = sqlSessionFactory.openSession();
+        AutoConstructorMapper mapper01 = sqlSession01.getMapper(AutoConstructorMapper.class);
+        Map<String, Object> params  = new HashMap<>();
+        params.put("id", 1);
+        mapper01.testResultMap(new HashMap<>(params));
     }
 
 }

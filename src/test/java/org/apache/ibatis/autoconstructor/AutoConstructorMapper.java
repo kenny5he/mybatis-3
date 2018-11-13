@@ -20,6 +20,7 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
+import java.util.Map;
 
 @CacheNamespace
 public interface AutoConstructorMapper {
@@ -32,10 +33,13 @@ public interface AutoConstructorMapper {
     List<PrimitiveSubject> getSubjects();
 
 
+    PrimitiveSubject testResultMap(Map<String, Object> map);
 
     PrimitiveSubject getSubject2(@Param("id") final int id); // add by 芋艿
 
     PrimitiveSubject getSubject3(@Param("id") final int id); // add by 芋艿
+
+    PrimitiveSubject getSubject4(@Param("id") final Integer id); // add by 芋艿
 
     List<PrimitiveSubject> getSubjectList(@Param("ids") List<Integer> ids); // add by 芋艿
 

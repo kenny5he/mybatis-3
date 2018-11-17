@@ -41,6 +41,8 @@ public interface AutoConstructorMapper {
 
     PrimitiveSubject getSubject4(@Param("id") final Integer id); // add by 芋艿
 
+    PrimitiveSubject getSubject5(String name, Integer age); // add by 芋艿
+
     List<PrimitiveSubject> getSubjectList(@Param("ids") List<Integer> ids); // add by 芋艿
 
     // ========== AnnotatedSubject ==========

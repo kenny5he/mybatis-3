@@ -18,6 +18,7 @@ package org.apache.ibatis.autoconstructor;
 import org.apache.ibatis.BaseDataTest;
 import org.apache.ibatis.exceptions.PersistenceException;
 import org.apache.ibatis.io.Resources;
+import org.apache.ibatis.session.ExecutorType;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
@@ -26,10 +27,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.io.Reader;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static org.junit.Assert.assertNotNull;
 
@@ -157,6 +155,35 @@ public class AutoConstructorTest {
         Map<String, Object> params  = new HashMap<>();
         params.put("id", 1);
         mapper01.testResultMap(new HashMap<>(params));
+    }
+
+    @Test
+    public void testGetSubject5() {
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        final AutoConstructorMapper mapper = sqlSession.getMapper(AutoConstructorMapper.class);
+        mapper.getSubject5("a", 10);
+    }
+
+    @Test
+    public void testBatch() {
+        // 创建要插入的用户的名字的数组
+        List<String> names = new ArrayList<>();
+        names.add("占小狼");
+        names.add("朱小厮");
+        names.add("徐妈");
+        names.add("飞哥");
+
+        // 获得执行器类型为 Batch 的 SqlSession 对象，并且 autoCommit = false ，禁止事务自动提交
+        try (SqlSession session = sqlSessionFactory.openSession(ExecutorType.BATCH, false)) {
+            // 获得 Mapper 对象
+            UserMapper mapper = session.getMapper(UserMapper.class);
+            // 循环插入
+            for (String name : names) {
+                mapper.insertUser(name);
+            }
+            // 提交批量操作
+            session.commit();
+        }
     }
 
 }

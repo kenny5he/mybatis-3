@@ -84,6 +84,11 @@
         </if>
     </select>
 
+    <select id="getSubject5" resultType="org.apache.ibatis.autoconstructor.PrimitiveSubject">
+        SELECT * FROM subject
+        WHERE name = #{param1} AND age = #{param2}
+    </select>
+
    <select id="getSubjectList" parameterType="List" resultType="List">
        SELECT id FROM subject
        WHERE id IN

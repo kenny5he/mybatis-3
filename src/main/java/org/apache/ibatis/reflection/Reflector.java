@@ -1,17 +1,17 @@
 /**
- * Copyright 2009-2018 the original author or authors.
- * <p>
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- * <p>
- * http://www.apache.org/licenses/LICENSE-2.0
- * <p>
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ *    Copyright 2009-2019 the original author or authors.
+ *
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
+ *
+ *       http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *    Unless required by applicable law or agreed to in writing, software
+ *    distributed under the License is distributed on an "AS IS" BASIS,
+ *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *    See the License for the specific language governing permissions and
+ *    limitations under the License.
  */
 package org.apache.ibatis.reflection;
 
@@ -281,12 +281,21 @@ public class Reflector {
         }
     }
 
+    /**
+     * 选择一个最精准匹配的set方法
+     * @param setter1
+     * @param setter2
+     * @param property
+     * @return
+     */
     private Method pickBetterSetter(Method setter1, Method setter2, String property) {
         if (setter1 == null) {
             return setter2;
         }
         Class<?> paramType1 = setter1.getParameterTypes()[0];
         Class<?> paramType2 = setter2.getParameterTypes()[0];
+        //isAssignableFrom 用来判断两个类的之间的关联关系，也可以说是一个类是否可以被强制转换为另外一个实例对象
+        //paramType2 是否可以转换为 paramType1
         if (paramType1.isAssignableFrom(paramType2)) {
             return setter2;
         } else if (paramType2.isAssignableFrom(paramType1)) {
@@ -338,6 +347,9 @@ public class Reflector {
         return result;
     }
 
+    /**
+     * 作为addGetMethods(...) 和 addSetMethods(...) 方法的补充，某些方法不存在get set方法，可直接访问
+     */
     private void addFields(Class<?> clazz) {
         // 获得所有 field 们
         Field[] fields = clazz.getDeclaredFields();

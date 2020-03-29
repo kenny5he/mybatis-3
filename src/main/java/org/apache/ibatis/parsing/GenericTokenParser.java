@@ -1,17 +1,17 @@
 /**
- * Copyright 2009-2017 the original author or authors.
- * <p>
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- * <p>
- * http://www.apache.org/licenses/LICENSE-2.0
- * <p>
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ *    Copyright 2009-2019 the original author or authors.
+ *
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
+ *
+ *       http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *    Unless required by applicable law or agreed to in writing, software
+ *    distributed under the License is distributed on an "AS IS" BASIS,
+ *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *    See the License for the specific language governing permissions and
+ *    limitations under the License.
  */
 package org.apache.ibatis.parsing;
 
@@ -24,20 +24,39 @@ public class GenericTokenParser {
 
     /**
      * 开始的 Token 字符串
+     * 例: ${
      */
     private final String openToken;
     /**
      * 结束的 Token 字符串
+     * 例: }
      */
     private final String closeToken;
     private final TokenHandler handler;
 
+
+    /**
+     * example: PropertyParser method: parse
+     * // <2.1> 创建 VariableTokenHandler 对象
+     * VariableTokenHandler handler = new VariableTokenHandler(variables);
+     * // <2.2> 创建 GenericTokenParser 对象
+     * GenericTokenParser parser = new GenericTokenParser("${", "}", handler);
+     * // <2.3> 执行解析
+     * parser.parse(string);
+     */
     public GenericTokenParser(String openToken, String closeToken, TokenHandler handler) {
         this.openToken = openToken;
         this.closeToken = closeToken;
         this.handler = handler;
     }
 
+
+    /**
+     * 将text中的${xxx}标记替换为 xxx标记对应的值
+     * 例:
+     * @param text
+     * @return
+     */
     public String parse(String text) {
         if (text == null || text.isEmpty()) {
             return "";
@@ -55,7 +74,7 @@ public class GenericTokenParser {
         StringBuilder expression = null; // 匹配到 openToken 和 closeToken 之间的表达式
         // 循环匹配
         while (start > -1) {
-            // 转义字符
+            // 转义字符,例: 处理text中${\\}xxxx}特殊字符
             if (start > 0 && src[start - 1] == '\\') {
                 // this open token is escaped. remove the backslash and continue.
                 // 因为 openToken 前面一个位置是 \ 转义字符，所以忽略 \

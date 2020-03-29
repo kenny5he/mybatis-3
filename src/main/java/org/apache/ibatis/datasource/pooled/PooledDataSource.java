@@ -1,17 +1,17 @@
 /**
- * Copyright 2009-2018 the original author or authors.
- * <p>
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- * <p>
- * http://www.apache.org/licenses/LICENSE-2.0
- * <p>
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ *    Copyright 2009-2019 the original author or authors.
+ *
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
+ *
+ *       http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *    Unless required by applicable law or agreed to in writing, software
+ *    distributed under the License is distributed on an "AS IS" BASIS,
+ *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *    See the License for the specific language governing permissions and
+ *    limitations under the License.
  */
 package org.apache.ibatis.datasource.pooled;
 
@@ -399,7 +399,7 @@ public class PooledDataSource implements DataSource {
                 if (state.idleConnections.size() < poolMaximumIdleConnections && conn.getConnectionTypeCode() == expectedConnectionTypeCode) {
                     // 统计连接使用时长
                     state.accumulatedCheckoutTime += conn.getCheckoutTime();
-                    // 回滚事务，避免适用房未提交或者回滚事务
+                    // 回滚事务，避免使用完提交或者回滚事务
                     if (!conn.getRealConnection().getAutoCommit()) {
                         conn.getRealConnection().rollback();
                     }
@@ -465,7 +465,7 @@ public class PooledDataSource implements DataSource {
                     // 激活的连接数小于 poolMaximumActiveConnections
                     if (state.activeConnections.size() < poolMaximumActiveConnections) {
                         // Can create new connection
-                        // 创建新的 PooledConnection 连接对象
+                        // 创建新的 PooledConnection 连接对象 //调用父类创建新的连接对象
                         conn = new PooledConnection(dataSource.getConnection(), this);
                         if (log.isDebugEnabled()) {
                             log.debug("Created connection " + conn.getRealHashCode() + ".");
@@ -666,6 +666,7 @@ public class PooledDataSource implements DataSource {
         return conn;
     }
 
+    @Override
     protected void finalize() throws Throwable {
         // 关闭所有连接
         forceCloseAll();
@@ -673,14 +674,17 @@ public class PooledDataSource implements DataSource {
         super.finalize();
     }
 
+    @Override
     public <T> T unwrap(Class<T> iface) throws SQLException {
         throw new SQLException(getClass().getName() + " is not a wrapper.");
     }
 
+    @Override
     public boolean isWrapperFor(Class<?> iface) throws SQLException {
         return false;
     }
 
+    @Override
     public Logger getParentLogger() {
         return Logger.getLogger(Logger.GLOBAL_LOGGER_NAME); // requires JDK version 1.6
     }

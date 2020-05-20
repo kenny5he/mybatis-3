@@ -60,10 +60,12 @@ public class MapperProxy<T> implements InvocationHandler, Serializable {
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
         try {
+            // 获取方法签名类，判断是否为Object的默认方法
             // 如果是 Object 定义的方法，直接调用
             if (Object.class.equals(method.getDeclaringClass())) {
                 return method.invoke(this, args);
             // 见 https://github.com/mybatis/mybatis-3/issues/709 ，支持 JDK8 default 方法
+            // 如果是接口默认方法，
             } else if (isDefaultMethod(method)) {
                 return invokeDefaultMethod(proxy, method, args);
             }
@@ -82,17 +84,25 @@ public class MapperProxy<T> implements InvocationHandler, Serializable {
 
     private Object invokeDefaultMethod(Object proxy, Method method, Object[] args)
             throws Throwable {
+        // MethodHandles 第一步获取Lookup
         final Constructor<MethodHandles.Lookup> constructor = MethodHandles.Lookup.class
                 .getDeclaredConstructor(Class.class, int.class);
         if (!constructor.isAccessible()) {
             constructor.setAccessible(true);
         }
+        // 获取方法签名类
         final Class<?> declaringClass = method.getDeclaringClass();
+        // MethodHandles 类似于反射调用操作类，但更为轻量级,性能更好
         return constructor
                 .newInstance(declaringClass,
                         MethodHandles.Lookup.PRIVATE | MethodHandles.Lookup.PROTECTED
                                 | MethodHandles.Lookup.PACKAGE | MethodHandles.Lookup.PUBLIC)
-                .unreflectSpecial(method, declaringClass).bindTo(proxy).invokeWithArguments(args);
+                // 构建方法句柄，将方法构建到签名类中
+                .unreflectSpecial(method, declaringClass)
+                // 将方法绑定到代理类中
+                .bindTo(proxy)
+                // 执行方法
+                .invokeWithArguments(args);
     }
 
     /**

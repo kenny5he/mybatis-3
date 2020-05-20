@@ -139,6 +139,7 @@
     <osgi.dynamicImport>*</osgi.dynamicImport>
     <maven.surefire.excludeGroups>org.apache.ibatis.test.SlowTests</maven.surefire.excludeGroups>
     <junit-engine.version>5.4.2</junit-engine.version>
+    <junit.jupiter.version>5.0.0-M4</junit.jupiter.version>
   </properties>
 
   <dependencies>
@@ -267,6 +268,24 @@
           <version>4.12</version>
           <scope>test</scope>
       </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-api</artifactId>
+      <version>${junit.jupiter.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-params</artifactId>
+      <version>${junit.jupiter.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-engine</artifactId>
+      <version>${junit.jupiter.version}</version>
+      <scope>test</scope>
+    </dependency>
   </dependencies>
 
   <build>
